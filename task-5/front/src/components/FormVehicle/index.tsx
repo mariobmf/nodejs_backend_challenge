@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import { toast } from 'react-toastify';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Switch from '@mui/material/Switch';
+import React, { useState } from "react";
+import { toast } from "react-toastify";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Switch from "@mui/material/Switch";
 
-import { Container } from './styles';
-import { useRegisterVehicle } from '../../hooks/useRegisterVehicle';
-import { BrandType, VehicleProps } from '../../hooks/useVehicles/types';
-import { useUpdateVehicle } from '../../hooks/useUpdateVehicle';
+import { Container } from "./styles";
+import { useRegisterVehicle } from "../../hooks/useRegisterVehicle";
+import { BrandType, VehicleProps } from "../../hooks/useVehicles/types";
+import { useUpdateVehicle } from "../../hooks/useUpdateVehicle";
 
 interface FormVehicleProps {
-  formType: 'register' | 'update';
+  formType: "register" | "update";
   formData?: VehicleProps;
   onSubmit?: () => void;
 }
@@ -22,14 +22,13 @@ interface FormVehicleProps {
 const FormVehicle: React.FC<FormVehicleProps> = ({
   formType,
   formData,
-  onSubmit
+  onSubmit,
 }) => {
-
   // STATES
-  const [brand, setBrand] = useState(formData?.marca || 'BMW');
-  const [vehicle, setVehicle] = useState(formData?.veiculo || '');
-  const [year, setYear] = useState(formData?.ano ? String(formData?.ano) : '');
-  const [description, setDescription] = useState(formData?.descricao || '');
+  const [brand, setBrand] = useState(formData?.marca || "BMW");
+  const [vehicle, setVehicle] = useState(formData?.veiculo || "");
+  const [year, setYear] = useState(formData?.ano ? String(formData?.ano) : "");
+  const [description, setDescription] = useState(formData?.descricao || "");
   const [sold, setSold] = useState(formData?.vendido || false);
 
   // HOOKS
@@ -40,15 +39,15 @@ const FormVehicle: React.FC<FormVehicleProps> = ({
    * @description Triggered to clear the form
    */
   const clearForm = () => {
-    setBrand('BMW');
-    setVehicle('');
-    setYear('');
-    setDescription('');
+    setBrand("BMW");
+    setVehicle("");
+    setYear("");
+    setDescription("");
     setSold(false);
-  }
+  };
 
   /**
-   * 
+   *
    * @description Change the state of the brand input
    */
   const handleBrandChange = (event: SelectChangeEvent) => {
@@ -56,7 +55,7 @@ const FormVehicle: React.FC<FormVehicleProps> = ({
   };
 
   /**
-   * 
+   *
    * @description Change the state of the sold input
    */
   const handleSoldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,72 +63,78 @@ const FormVehicle: React.FC<FormVehicleProps> = ({
   };
 
   /**
-   * 
+   *
    * @description Register a new vehicle
    */
   const handleRegisterVehicle = () => {
-    if(brand && vehicle && year && description){
-      registerVehicle.mutate({
-        ano: Number(year),
-        descricao: description,
-        marca: brand,
-        veiculo: vehicle,
-      },{
-        onSuccess: () => {
-          if (onSubmit) {
-            onSubmit();
-          }
-          clearForm();
+    if (brand && vehicle && year && description) {
+      registerVehicle.mutate(
+        {
+          ano: Number(year),
+          descricao: description,
+          marca: brand,
+          veiculo: vehicle,
+        },
+        {
+          onSuccess: () => {
+            if (onSubmit) {
+              onSubmit();
+            }
+            clearForm();
+          },
         }
-      });
+      );
     } else {
-      toast.error('Erro ao cadastrar o veículo, verifique o formulário!');
+      toast.error("Erro ao cadastrar o veículo, verifique o formulário!");
     }
-
   };
 
   /**
-   * 
+   *
    * @description Update a vehicle
    */
   const handleUpdateVehicle = () => {
-    if(formData){
-      updateVehicle.mutate({
-        id: formData._id,
-        ano: Number(year),
-        descricao: description,
-        marca: brand,
-        veiculo: vehicle,
-        vendido: sold,
-      },{
-        onSuccess: () => {
-          if (onSubmit) {
-            onSubmit();
-          }
-          clearForm();
+    if (formData) {
+      updateVehicle.mutate(
+        {
+          id: formData.id,
+          ano: Number(year),
+          descricao: description,
+          marca: brand,
+          veiculo: vehicle,
+          vendido: sold,
+        },
+        {
+          onSuccess: () => {
+            if (onSubmit) {
+              onSubmit();
+            }
+            clearForm();
+          },
         }
-      });
+      );
     } else {
-      toast.error('Erro ao atualizar o veículo, verifique o formulário!');
+      toast.error("Erro ao atualizar o veículo, verifique o formulário!");
     }
   };
 
-
   /**
-   * 
+   *
    * @description Trigger form submission
    */
   const handleSubmitForm = () => {
-    if(formType === 'register'){
+    if (formType === "register") {
       handleRegisterVehicle();
       return;
     }
     handleUpdateVehicle();
-  }
+  };
 
   return (
     <Container>
-      <h3>{formType === 'register' ? 'Cadastrar Veículo' : 'Atualizar Veículo'}</h3>
+      <h3>
+        {formType === "register" ? "Cadastrar Veículo" : "Atualizar Veículo"}
+      </h3>
 
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Marca</InputLabel>
@@ -156,13 +161,13 @@ const FormVehicle: React.FC<FormVehicleProps> = ({
         label="Veiculo"
         variant="outlined"
         value={vehicle}
-        onChange={event => setVehicle(event.target.value)}
+        onChange={(event) => setVehicle(event.target.value)}
       />
       <TextField
         label="Ano"
         variant="outlined"
         value={year}
-        onChange={event => setYear(event.target.value)}
+        onChange={(event) => setYear(event.target.value)}
       />
       <TextField
         label="Descrição"
@@ -170,23 +175,20 @@ const FormVehicle: React.FC<FormVehicleProps> = ({
         multiline
         maxRows={4}
         value={description}
-        onChange={event => setDescription(event.target.value)}
+        onChange={(event) => setDescription(event.target.value)}
       />
-      {formType === 'update' && (
+      {formType === "update" && (
         <p>
           <strong>Vendido: </strong>
-          <Switch checked={sold} onChange={handleSoldChange}/>
+          <Switch checked={sold} onChange={handleSoldChange} />
         </p>
       )}
 
-      <Button
-        variant="contained"
-        onClick={handleSubmitForm}
-      >
-       {formType === 'register' ? 'Cadastrar' : 'Atualizar'}
+      <Button variant="contained" onClick={handleSubmitForm}>
+        {formType === "register" ? "Cadastrar" : "Atualizar"}
       </Button>
     </Container>
   );
-}
+};
 
 export default FormVehicle;

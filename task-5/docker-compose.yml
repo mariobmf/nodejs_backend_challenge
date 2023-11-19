@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   app_vehicles:
@@ -6,12 +6,12 @@ services:
       context: ./front/
       target: dev
     container_name: app_vehicles
-    volumes:     
+    volumes:
       - ./front:/app
       - nodemodulesapp:/app/node_modules
     command: yarn dev
     ports:
-      - '3000:3000'
+      - "3000:3000"
     networks:
       - app-network
     links:
@@ -30,7 +30,7 @@ services:
     command: yarn dev
     ports:
       - "3333:3333"
-    environment: 
+    environment:
       MONGO_URL: mongodb
     networks:
       - app-network
@@ -43,11 +43,11 @@ services:
     image: mongo
     container_name: mongodb
     ports:
-      - '27017:27017'
-    volumes:     
+      - "27017:27017"
+    volumes:
       - dbdata:/data/db
     networks:
-      - app-network  
+      - app-network
 
 networks:
   app-network:
