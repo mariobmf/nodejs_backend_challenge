@@ -14,8 +14,6 @@ services:
       - "3000:3000"
     networks:
       - app-network
-    environment:
-      - VITE_API_URL=api_vehicles:3333
     links:
       - api_vehicles
     depends_on:
