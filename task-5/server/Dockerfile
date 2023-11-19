@@ -1,19 +1,18 @@
-FROM node:16.15 as base
-
+FROM node:18-bullseye-slim AS base
 WORKDIR /app
 COPY package.json /app
-COPY yarn.lock /app
+COPY package-lock.json /app
 EXPOSE 3333
 
 FROM base as production
 ENV NODE_ENV=production
-RUN yarn
+RUN npm i
 COPY . /
-RUN yarn build
-CMD [ "node", "dist/server.js" ]
+RUN npm run build
+CMD [ "node", "dist/main.js" ]
 
 FROM base as dev
 ENV NODE_ENV=development
-RUN yarn
+RUN npm i
 COPY . /
-CMD ["yarn", "dev"]
+CMD ["npm", "run", "dev"]
