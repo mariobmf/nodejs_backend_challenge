@@ -23,7 +23,7 @@ services:
     container_name: api_vehicles
     build:
       context: ./server/
-      target: dev
+      dockerfile: dev.dockerfile
     volumes:
       - ./server:/app
       - nodemodulesapi:/app/node_modules
