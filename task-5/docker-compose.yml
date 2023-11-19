@@ -31,7 +31,7 @@ services:
     ports:
       - "3333:3333"
     environment:
-      MONGO_URL: mongodb
+      - MONGODB_URL="mongodb://mongodb:27017/car_dealership"
     networks:
       - app-network
     links:
