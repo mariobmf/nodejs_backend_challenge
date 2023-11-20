@@ -1,5 +1,4 @@
-import Election from './Election.mjs';
-// const Election = require('./Election');
+import Election from "./Election.mjs";
 
 const election = new Election(1000, 800, 150, 50);
 

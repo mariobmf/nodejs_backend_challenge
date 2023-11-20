@@ -1,4 +1,4 @@
-import {factorialFunction} from './factorialFunction.mjs';
+import { factorialFunction } from "./factorialFunction.mjs";
 
 const numberToFatorial = 5;
 

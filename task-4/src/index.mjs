@@ -1,4 +1,4 @@
-import { sumMultiplesOfThreeAndFive } from './sumMultiplesFunction.mjs';
+import { sumMultiplesOfThreeAndFive } from "./sumMultiplesFunction.mjs";
 
 const result = sumMultiplesOfThreeAndFive(10);
 
